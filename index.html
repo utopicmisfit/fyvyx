@@ -429,7 +429,9 @@
                 order: 2;
             }
 
-            /* Ocultar LEVEL y LINES en móvil */
+            /* Sin bordes ni fondo en la columna derecha móvil */
+            .stats-stack { background: transparent; }
+            .stats-stack .stat-block { border: none; background: transparent; box-shadow: none; padding: 2px; }
             .stats-stack > .stat-block.level-block,
             .stats-stack > .stat-block.lines-block { display: none; }
             /* Ocultar controles y mouse hint */
@@ -1518,22 +1520,11 @@
                 </div>
             </div>
 
-            <!-- BARRA STATS MÓVIL — SCORE / LEVEL / LINES bajo el canvas -->
+            <!-- BARRA STATS MÓVIL — oculta en móvil, mantenida por compatibilidad -->
             <div class="mobile-stats-bar">
                 <div class="stat-block"><div class="stat-label">SCORE</div><div class="stat-digit score" id="scoreMobile">0</div></div>
                 <div class="stat-block"><div class="stat-label">LEVEL</div><div class="stat-digit level" id="levelMobile">1</div></div>
                 <div class="stat-block"><div class="stat-label">LINES</div><div class="stat-digit lines" id="linesMobile">0</div></div>
-            </div>
-
-            <!-- BANNER MÓVIL INFERIOR — solo visible en móvil, bajo las stats -->
-            <!-- 320×50 Mobile Banner: sustituye data-ad-slot con tu slot ID real  -->
-            <div class="ad-mobile-banner" id="adMobileBannerBottom">
-                <div class="ad-label">Publicidad</div>
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:320px;height:50px"
-                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-                     data-ad-slot="5555555555"></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
             </div>
         </div>
 
