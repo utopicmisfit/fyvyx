@@ -386,6 +386,7 @@
             .ad-mobile-banner { display: none !important; }
             .mobile-stats-bar { display: none !important; }
             .ad-mobile-col { display: none !important; }
+            .hof-fyvyx-mobile { display: none !important; }
         }
 
         /* MOVIL < 480px */
@@ -396,12 +397,14 @@
             .game-centered { width: 100%; flex: 1; display: flex; flex-direction: column; min-height: 0; }
             .main-row { flex-direction: column; align-items: stretch; gap: 0; flex: 1; min-height: 0; }
 
-            /* HOF: tira fina top 3 */
-            .left-column { width: 100%; transform: none; gap: 0; flex-shrink: 0; }
+            /* HOF: tira fina top 3 — pegada arriba sin margen */
+            .left-column { width: 100%; transform: none; gap: 0; flex-shrink: 0; margin: 0; padding: 0; }
             .title-area { display: none; }
-            .hof-box { height: auto; max-height: 62px; border-radius: 0; border-left: none; border-right: none; border-top: none; padding: 3px 6px; overflow: hidden; flex-shrink: 0; }
-            .hof-title h2 { font-size: 0.52rem; }
+            .hof-box { height: auto; max-height: 52px; border-radius: 0; border: none !important; padding: 2px 6px; overflow: hidden; flex-shrink: 0; margin: 0; }
+            .hof-title { margin-bottom: 2px; padding-bottom: 2px; }
+            .hof-title h2 { font-size: 0.50rem; }
             .hof-title span { display: none; }
+            .hof-fyvyx-mobile { color: var(--cyan); letter-spacing: 1px; }
             .hof-list { flex-direction: row; gap: 4px; overflow-x: auto; flex-wrap: nowrap; }
             .hof-entry:nth-child(n+4) { display: none; }
             .hof-entry { font-size: 0.50rem; grid-template-columns: 18px 20px 1fr 36px; padding: 2px 3px; min-width: 110px; flex-shrink: 0; }
@@ -430,8 +433,11 @@
             }
 
             /* Sin bordes ni fondo en la columna derecha móvil */
-            .stats-stack { background: transparent; }
-            .stats-stack .stat-block { border: none; background: transparent; box-shadow: none; padding: 2px; }
+            .stats-stack { background: transparent !important; border: none !important; }
+            .stats-stack .stat-block,
+            .stats-stack .stat-block.next-piece-block,
+            .stats-stack .stat-block.second-next-block { border: none !important; background: transparent !important; box-shadow: none !important; padding: 2px; }
+            canvas#nextCanvas, canvas#secondNextCanvas { border: 1px solid rgba(124,58,237,0.4) !important; box-shadow: none !important; }
             .stats-stack > .stat-block.level-block,
             .stats-stack > .stat-block.lines-block { display: none; }
             /* Ocultar controles y mouse hint */
@@ -1450,7 +1456,7 @@
                 </div>
                 <div class="hof-box">
                     <div class="hof-title">
-                        <h2>🏆 HALL OF FAME</h2>
+                        <h2><span class="hof-fyvyx-mobile">FYVYX &nbsp;·&nbsp; </span>🏆 HALL OF FAME</h2>
                         <span>TOP 20</span>
                     </div>
                     <div class="hof-list" id="hofListContainer"></div>
