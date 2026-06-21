@@ -60,9 +60,10 @@
         }
 
         .game-centered {
-            max-width: 1400px;
+            max-width: 100vw;
             width: 100%;
             margin: 0 auto;
+            padding: 0 12px;
         }
 
         .main-row {
@@ -74,7 +75,7 @@
 
         /* LEFT COLUMN - moved 5px south */
         .left-column {
-            width: 282px;
+            width: min(22vw, 320px);
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
@@ -91,7 +92,7 @@
         }
         .title-area h1 {
             font-family: 'Orbitron', monospace;
-            font-size: 2.1rem;
+            font-size: clamp(1.6rem, 2.5vw, 3rem);
             font-weight: 900;
             background: linear-gradient(135deg, var(--cyan), var(--purple-light), var(--pink));
             -webkit-background-clip: text;
@@ -107,7 +108,7 @@
             border: 1px solid var(--purple);
             border-radius: 16px;
             padding: 6px 6px;
-            height: 594px;
+            height: min(82vh, 840px);
             display: flex;
             flex-direction: column;
             box-shadow: 0 6px 16px rgba(0,0,0,0.4);
@@ -187,8 +188,8 @@
             border-radius: 2px;
             background: #050510;
             display: block;
-            width: 310px;
-            height: 620px;
+            width: min(38vw, 420px);
+            height: min(76vw, 840px);
             box-shadow: 0 0 18px rgba(124,58,237,0.35);
             cursor: pointer;
         }
@@ -221,7 +222,7 @@
         /* SCORE - 4.25rem - GOLDEN ORANGE */
         .stat-digit.score {
             font-family: 'Orbitron', monospace;
-            font-size: 4.25rem;
+            font-size: clamp(2.5rem, 4vw, 5.5rem);
             font-weight: 900;
             color: #ff8c00;
             line-height: 1;
@@ -394,45 +395,89 @@
             .ad-sidebar { display: none; }
             .game-centered { width: 100%; flex: 1; display: flex; flex-direction: column; min-height: 0; }
             .main-row { flex-direction: column; align-items: stretch; gap: 0; flex: 1; min-height: 0; }
-            /* HOF tira fina */
+
+            /* HOF: tira fina top 3 */
             .left-column { width: 100%; transform: none; gap: 0; flex-shrink: 0; }
             .title-area { display: none; }
-            .hof-box { height: auto; max-height: 68px; border-radius: 0; border-left: none; border-right: none; border-top: none; padding: 3px 6px; overflow: hidden; flex-shrink: 0; }
-            .hof-title h2 { font-size: 0.55rem; }
+            .hof-box { height: auto; max-height: 62px; border-radius: 0; border-left: none; border-right: none; border-top: none; padding: 3px 6px; overflow: hidden; flex-shrink: 0; }
+            .hof-title h2 { font-size: 0.52rem; }
             .hof-title span { display: none; }
             .hof-list { flex-direction: row; gap: 4px; overflow-x: auto; flex-wrap: nowrap; }
             .hof-entry:nth-child(n+4) { display: none; }
-            .hof-entry { font-size: 0.52rem; grid-template-columns: 18px 20px 1fr 36px; padding: 2px 3px; min-width: 110px; flex-shrink: 0; }
+            .hof-entry { font-size: 0.50rem; grid-template-columns: 18px 20px 1fr 36px; padding: 2px 3px; min-width: 110px; flex-shrink: 0; }
+
             /* Banner superior */
             .ad-mobile-banner { display: flex; flex-shrink: 0; }
-            /* Fila central: col-izq + canvas */
+
+            /* Fila central: columna derecha (stats) + canvas */
             .right-panel { flex: 1; min-height: 0; padding: 0; gap: 0; background: transparent; border: none; box-shadow: none; flex-direction: row; align-items: stretch; width: 100%; }
-            /* Columna izquierda */
-            .stats-stack { width: 70px; flex-shrink: 0; flex-direction: column; justify-content: flex-start; align-items: center; gap: 6px; padding: 6px 3px; min-width: unset; background: rgba(10,6,24,0.95); border-right: 1px solid rgba(124,58,237,0.4); overflow: hidden; }
-            .stats-stack > .stat-block:not(.next-piece-block):not(.second-next-block) { display: none; }
-            .stats-stack > .mouse-hint { display: none; }
+
+            /* Columna derecha: SCORE arriba, NEXT, NEXT+, luego MUSIC abajo */
+            .stats-stack {
+                width: 72px;
+                flex-shrink: 0;
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 5px;
+                padding: 5px 3px;
+                min-width: unset;
+                background: rgba(10,6,24,0.95);
+                border-left: 1px solid rgba(124,58,237,0.4);
+                border-right: none;
+                overflow: hidden;
+                order: 2;
+            }
+
+            /* Ocultar LEVEL y LINES en móvil */
+            .stats-stack > .stat-block.level-block,
+            .stats-stack > .stat-block.lines-block { display: none; }
+            /* Ocultar controles y mouse hint */
             .stats-stack > div:last-child { display: none; }
             .controls-mini { display: none; }
             .mouse-hint { display: none; }
             .music-toggle-desktop { display: none; }
             .touch-zone { display: none !important; }
+            .mobile-stats-bar { display: none !important; }
+
+            /* SCORE visible arriba */
+            .stats-stack > .stat-block:not(.next-piece-block):not(.second-next-block):not(.level-block):not(.lines-block) {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 3px;
+                border-radius: 8px;
+                width: 64px;
+                flex-shrink: 0;
+            }
+            .stat-digit.score { font-size: 1.15rem; line-height: 1.1; }
+            .stat-label { font-size: 0.38rem; }
+
             /* NEXT y NEXT+ */
-            .stat-block.next-piece-block, .stat-block.second-next-block { display: flex; flex-direction: column; align-items: center; padding: 3px; border-radius: 8px; width: 62px; flex-shrink: 0; }
-            .stat-label { font-size: 0.4rem; }
-            canvas#nextCanvas, canvas#secondNextCanvas { width: 54px; height: 54px; }
-            /* Music toggle movil */
-            .stats-stack > .music-toggle { display: flex; position: static; margin-top: 2px; padding: 4px; font-size: 0.36rem; border-radius: 7px; width: 56px; flex-shrink: 0; }
-            /* Banner vertical columna izquierda */
-            .ad-mobile-col { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; flex: 1; padding-bottom: 3px; gap: 2px; }
-            /* Canvas */
-            .canvas-wrapper { transform: none; flex: 1; display: flex; align-items: stretch; min-width: 0; }
+            .stat-block.next-piece-block, .stat-block.second-next-block {
+                display: flex; flex-direction: column; align-items: center;
+                padding: 3px; border-radius: 8px; width: 64px; flex-shrink: 0;
+            }
+            canvas#nextCanvas, canvas#secondNextCanvas { width: 56px; height: 56px; }
+
+            /* Music toggle al fondo de la columna */
+            .stats-stack > .music-toggle {
+                display: flex; position: static; margin-top: auto;
+                padding: 4px; font-size: 0.34rem; border-radius: 7px;
+                width: 58px; flex-shrink: 0;
+            }
+
+            /* Banner vertical en hueco — debajo de MUSIC */
+            .ad-mobile-col {
+                display: flex; flex-direction: column; align-items: center;
+                justify-content: flex-end; flex-shrink: 0;
+                padding-bottom: 3px; gap: 2px; width: 64px;
+            }
+
+            /* Canvas: todo el espacio a la IZQUIERDA, pegado al borde */
+            .canvas-wrapper { transform: none; flex: 1; display: flex; align-items: stretch; min-width: 0; order: 1; }
             canvas#gameCanvas { width: 100%; height: 100%; max-width: unset; max-height: unset; }
-            /* Barra stats inferior */
-            .mobile-stats-bar { display: flex; width: 100%; background: var(--surface); border-top: 1px solid var(--purple); justify-content: space-around; align-items: center; padding: 3px 6px; gap: 4px; flex-shrink: 0; }
-            .mobile-stats-bar .stat-block { flex: 1; padding: 2px 3px; border-radius: 7px; text-align: center; }
-            .mobile-stats-bar .stat-digit.score { font-size: 1.3rem; }
-            .mobile-stats-bar .stat-digit.level, .mobile-stats-bar .stat-digit.lines { font-size: 0.95rem; }
-            .mobile-stats-bar .stat-label { font-size: 0.36rem; }
+
             /* Banner inferior */
             #adMobileBannerBottom { display: flex; flex-shrink: 0; }
             .ad-interstitial-card { padding: 14px 16px; }
@@ -1427,7 +1472,9 @@
                     <canvas id="gameCanvas" width="310" height="620"></canvas>
                 </div>
                 <div class="stats-stack">
-                    <!-- NEXT y NEXT+ arriba del todo -->
+                    <!-- SCORE arriba (visible en móvil y desktop) -->
+                    <div class="stat-block"><div class="stat-label">SCORE</div><div class="stat-digit score" id="score">0</div></div>
+                    <!-- NEXT y NEXT+ -->
                     <div class="stat-block next-piece-block">
                         <div class="stat-label">NEXT</div>
                         <canvas id="nextCanvas" width="94" height="94"></canvas>
@@ -1436,22 +1483,16 @@
                         <div class="stat-label">NEXT+</div>
                         <canvas id="secondNextCanvas" width="94" height="94"></canvas>
                     </div>
-                    <!-- Botón música bajo NEXT+ -->
-                    <button class="music-toggle muted" id="musicToggle" type="button" title="Toggle 8-bit background music">
-                        <span class="note-bars"><span></span><span></span><span></span><span></span></span>
-                        <span class="note-label" id="musicLabel">MUSIC · OFF</span>
-                    </button>
-                    <!-- Stats de desktop (ocultos en móvil, visibles en desktop) -->
-                    <div class="stat-block"><div class="stat-label">SCORE</div><div class="stat-digit score" id="score">0</div></div>
-                    <div class="stat-block"><div class="stat-label">LEVEL</div><div class="stat-digit level" id="level">1</div></div>
-                    <div class="stat-block"><div class="stat-label">LINES</div><div class="stat-digit lines" id="lines">0</div></div>
+                    <!-- LEVEL y LINES (solo desktop) -->
+                    <div class="stat-block level-block"><div class="stat-label">LEVEL</div><div class="stat-digit level" id="level">1</div></div>
+                    <div class="stat-block lines-block"><div class="stat-label">LINES</div><div class="stat-digit lines" id="lines">0</div></div>
+                    <!-- Controls + music desktop -->
                     <div style="display:flex;align-items:center;gap:6px;margin-top:1px;">
                         <div class="controls-mini" style="margin-top:0;flex:1;">
                             <div class="ctrl-line"><kbd>←</kbd><kbd>→</kbd> move</div>
                             <div class="ctrl-line"><kbd>↑</kbd> rotate  <kbd>↓</kbd> soft</div>
                             <div class="ctrl-line"><kbd>SPC</kbd> hard drop</div>
                         </div>
-                        <!-- Music toggle en desktop — oculto en móvil -->
                         <button class="music-toggle-desktop muted" id="musicToggleDesktop" type="button" title="Toggle 8-bit background music">
                             <span class="note-bars"><span></span><span></span><span></span><span></span></span>
                             <span class="note-label" id="musicLabelDesktop">MUSIC · OFF</span>
@@ -1460,8 +1501,12 @@
                     <div class="mouse-hint">
                         🖱️ <span>MOUSE:</span> click & drag ← → ↑ ↓ | click = rotate | right-click = hard drop
                     </div>
-                    <!-- BANNER COLUMNA IZQUIERDA — solo visible en móvil, en hueco bajo music -->
-                    <!-- 60×160 Small Rectangle: sustituye data-ad-slot con tu slot ID real   -->
+                    <!-- Music toggle móvil (al fondo via margin-top:auto en CSS) -->
+                    <button class="music-toggle muted" id="musicToggle" type="button" title="Toggle 8-bit background music">
+                        <span class="note-bars"><span></span><span></span><span></span><span></span></span>
+                        <span class="note-label" id="musicLabel">MUSIC · OFF</span>
+                    </button>
+                    <!-- Banner vertical columna — solo móvil -->
                     <div class="ad-mobile-col">
                         <div class="ad-label">Pub.</div>
                         <ins class="adsbygoogle"
